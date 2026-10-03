@@ -42,8 +42,7 @@
       margin-bottom: 10px;
     }
 
-    /* MINIMAL BUTTON MATCHING PLAY.JS STYLE */
-    .theme-toggle-btn {
+    .theme-toggle-btn, .action-btn, select {
       font-family: Arial, Helvetica, sans-serif;
       font-size: 12px;
       background: var(--th-bg);
@@ -53,7 +52,7 @@
       cursor: pointer;
     }
 
-    .theme-toggle-btn:hover {
+    .theme-toggle-btn:hover, .action-btn:hover {
       opacity: 0.8;
     }
 
@@ -132,7 +131,7 @@
       background-repeat: no-repeat;
       background-image: url('nintendo-entertainment-system-nes-sides (1).jpg');
       border: 1px solid var(--border-color);
-      margin: 15px 0;
+      margin: 15px 0 10px 0;
     }
 
     .nes-interactive-console.open-state {
@@ -214,6 +213,20 @@
       opacity: 1;
     }
 
+    /* SAVE / LOAD CONTROLS PANEL */
+    .save-panel {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .save-status {
+      font-size: 12px;
+      color: var(--subtext-color);
+    }
+
     /* CONTROLS TABLE */
     table {
       border-collapse: collapse;
@@ -257,7 +270,7 @@
     
     <!-- LEFT DISPLAY COLUMN -->
     <div class="left-column">
-      <div class="screen-container">
+      <div class="screen-container" id="screenContainer">
         <div class="screen-off-msg" id="screenMsg">System powered off</div>
         <div id="emulator"></div>
       </div>
@@ -289,6 +302,20 @@
         <div class="led-glow" id="powerLed"></div>
       </div>
 
+      <!-- SAVE / LOAD / FULLSCREEN / PRESETS -->
+      <div class="save-panel">
+        <button class="action-btn" onclick="saveGameState()">Save State</button>
+        <button class="action-btn" onclick="loadGameState()">Load State</button>
+        <button class="action-btn" onclick="toggleFullscreen()">Full Screen</button>
+        
+        <select id="presetSelect" onchange="loadPresetGame(this.value)">
+          <option value="">-- Load Homebrew Game --</option>
+          <option value="https://cdn.emulatorjs.org/stable/data/roms/nes/2048.nes">2048 (NES)</option>
+        </select>
+
+        <span class="save-status" id="saveStatus"></span>
+      </div>
+
       <h2>Controls</h2>
       <table>
         <thead>
@@ -317,7 +344,7 @@
   <script>
     let isDoorOpen = false;
     let isPowerOn = false;
-    let loadedRomFile = null;
+    let activeRomSource = null; // Can be a File object or a string URL
 
     const consoleBody = document.getElementById('consoleBody');
     const doorHotspot = document.getElementById('doorHotspot');
@@ -325,6 +352,7 @@
     const powerLed = document.getElementById('powerLed');
     const screenMsg = document.getElementById('screenMsg');
     const themeBtn = document.getElementById('themeBtn');
+    const saveStatus = document.getElementById('saveStatus');
 
     function toggleDarkMode() {
       document.body.classList.toggle('dark-mode');
@@ -355,7 +383,7 @@
         return;
       }
 
-      loadedRomFile = file;
+      activeRomSource = file;
 
       setTimeout(() => {
         if (isDoorOpen) toggleDoor();
@@ -366,11 +394,18 @@
       }, 200);
     }
 
+    function loadPresetGame(url) {
+      if (!url) return;
+      activeRomSource = url;
+      if (!isPowerOn) turnPowerOn();
+      else bootEmulator();
+    }
+
     function togglePower() {
       if (isPowerOn) {
         turnPowerOff();
       } else {
-        if (!loadedRomFile) {
+        if (!activeRomSource) {
           alert('Cartridge tray empty. Open door and select a .NES file first.');
           if (!isDoorOpen) toggleDoor();
           return;
@@ -383,7 +418,7 @@
       isPowerOn = true;
       powerLed.classList.add('active');
       screenMsg.style.display = 'none';
-      if (loadedRomFile) bootEmulator();
+      if (activeRomSource) bootEmulator();
     }
 
     function turnPowerOff() {
@@ -391,13 +426,16 @@
       powerLed.classList.remove('active');
       screenMsg.style.display = 'flex';
       document.getElementById('emulator').innerHTML = '';
+      saveStatus.innerText = '';
     }
 
     function bootEmulator() {
       const emuContainer = document.getElementById('emulator');
       emuContainer.innerHTML = ''; 
 
-      const romUrl = URL.createObjectURL(loadedRomFile);
+      const romUrl = typeof activeRomSource === 'string' 
+        ? activeRomSource 
+        : URL.createObjectURL(activeRomSource);
 
       window.EJS_player = '#emulator';
       window.EJS_core = 'nes';
@@ -414,6 +452,53 @@
     function resetGame() {
       if (window.EJS_emulator && isPowerOn) {
         window.EJS_emulator.restart();
+      }
+    }
+
+    function toggleFullscreen() {
+      const elem = document.getElementById('screenContainer');
+      if (!document.fullscreenElement) {
+        if (elem.requestFullscreen) elem.requestFullscreen();
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+
+    /* SAVE STATE FUNCTIONALITY */
+    function saveGameState() {
+      if (!isPowerOn || !window.EJS_emulator) {
+        alert('Please power on the system and load a game first.');
+        return;
+      }
+      try {
+        const state = window.EJS_emulator.gameManager.getState();
+        localStorage.setItem('nejs_saved_state', JSON.stringify(Array.from(state)));
+        saveStatus.innerText = 'State saved!';
+        setTimeout(() => { saveStatus.innerText = ''; }, 3000);
+      } catch (e) {
+        saveStatus.innerText = 'Save failed.';
+      }
+    }
+
+    /* LOAD STATE FUNCTIONALITY */
+    function loadGameState() {
+      if (!isPowerOn || !window.EJS_emulator) {
+        alert('Please power on the system and load a game first.');
+        return;
+      }
+      const savedData = localStorage.getItem('nejs_saved_state');
+      if (!savedData) {
+        saveStatus.innerText = 'No save state found.';
+        setTimeout(() => { saveStatus.innerText = ''; }, 3000);
+        return;
+      }
+      try {
+        const stateArray = new Uint8Array(JSON.parse(savedData));
+        window.EJS_emulator.gameManager.loadState(stateArray);
+        saveStatus.innerText = 'State loaded!';
+        setTimeout(() => { saveStatus.innerText = ''; }, 3000);
+      } catch (e) {
+        saveStatus.innerText = 'Load failed.';
       }
     }
   </script>
