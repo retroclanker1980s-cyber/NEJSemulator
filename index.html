@@ -112,106 +112,152 @@
       margin: 0 0 10px 0;
     }
 
-    a {
-      color: var(--link-color);
-    }
-
-    a:visited {
-      color: var(--link-visited);
-    }
-
-    /* PHOTO CONSOLE HARDWARE (EMBEDDED BASE64 DATA URIs) */
+    /* PURE CSS NES HARDWARE STYLING */
     .nes-interactive-console {
       position: relative;
       width: 100%;
       max-width: 420px;
-      aspect-ratio: 1240 / 525;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjQwIDUyNSI+PHJlY3Qgd2lkdGg9IjEyNDAiIGhlaWdodD0iNTI1IiBmaWxsPSIjMmEyYTJhIiByeD0iMTIiLz48cmVjdCB4PSIyMCIgeT0iMjAiIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjQ4NSIgZmlsbD0iI2NjY2NjYyIgcng9IjgiLz48cmVjdCB4PSIyMCIgeT0iMjAiIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjIxMCIgZmlsbD0iI2U2ZTZlNiIvPjxyZWN0IHg9IjE2MCIgeT0iMzUiIHdpZHRoPSI3MDAiIGhlaWdodD0iMTgwIiBmaWxsPSIjMWExYTFhIiByeD0iNCIvPjx0ZXh0IHg9IjE4NSIgeT0iNzAiIGZpbGw9IiNjYzAwMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZvbnQtc2l6ZT0iMjIiPk5pbnRlbmRvPC90ZXh0Pjx0ZXh0IHg9IjE4NSIgeT0iODgiIGZpbGw9IiNjYzAwMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiI+RU5URVJUQUlOTUVOVCBTWVNURU08L3RleHQ+PHJlY3QgeD0iMTg1IiB5PSIxMDUiIHdpZHRoPSI2NTAiIGhlaWdodD0iOTUiIGZpbGw9IiMzMzMzMzMiIHJ4PSIzIi8+PHRleHQgeD0iNTEwIiB5PSIxNjAiIGZpbGw9IiM4ODg4ODgiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZvbnQtc2l6ZT0iMTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkNMSUNLIFRPIE9QRU4gQ0FSVFJJREdFIFNMT1Q8L3RleHQ+PHJlY3QgeD0iMjIwIiB5PSI0MjAiIHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiIGZpbGw9IiMyMjIyMjIiIHJ4PSIzIi8+PHRleHQgeD0iMjgwIiB5PSI0NTUiIGZpbGw9IiNmZmZmZmYiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9ImJvbGQiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlBPV0VSPC90ZXh0PjxyZWN0IHg9IjM1MCIgeT0iNDIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjMjIyMjIyIiByeD0iMyIvPjx0ZXh0IHg9IjQxMCIgeT0iNDU1IiBmaWxsPSIjZmZmZmZmIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5SRVNFVDwvdGV4dD48Y2lyY2xlIGN4PSIxOTUiIGN5PSI0NTAiIHI9IjEyIiBmaWxsPSIjNDQwMDAwIi8+PC9zdmc+");
-      border: 1px solid var(--border-color);
+      height: 200px;
+      background-color: #cccccc;
+      border: 3px solid #2a2a2a;
+      border-radius: 8px;
+      box-shadow: inset 0 -10px 0 #999999;
       margin: 15px 0 10px 0;
+      box-sizing: border-border;
+      overflow: hidden;
+      user-select: none;
     }
 
-    .nes-interactive-console.open-state {
-      background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjQwIDUyNSI+PHJlY3Qgd2lkdGg9IjEyNDAiIGhlaWdodD0iNTI1IiBmaWxsPSIjMmEyYTJhIiByeD0iMTIiLz48cmVjdCB4PSIyMCIgeT0iMjAiIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjQ4NSIgZmlsbD0iI2NjY2NjYyIgcng9IjgiLz48cmVjdCB4PSIyMCIgeT0iMjAiIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjIxMCIgZmlsbD0iI2U2ZTZlNiIvPjxyZWN0IHg9IjE2MCIgeT0iMzUiIHdpZHRoPSI3MDAiIGhlaWdodD0iMTgwIiBmaWxsPSIjMWExYTFhIiByeD0iNCIvPjx0ZXh0IHg9IjE4NSIgeT0iNzAiIGZpbGw9IiNjYzAwMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZvbnQtc2l6ZT0iMjIiPk5pbnRlbmRvPC90ZXh0Pjx0ZXh0IHg9IjE4NSIgeT0iODgiIGZpbGw9IiNjYzAwMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiI+RU5URVJUQUlOTUVOVCBTWVNURU08L3RleHQ+PHJlY3QgeD0iMTg1IiB5PSIzNSIgd2lkdGg9IjY1MCIgaGVpZ2h0PSI3NSIgZmlsbD0iIzExMTExMSIgcng9IjMiLz48cmVjdCB4PSIyMTAiIHk9IjExNSIgd2lkdGg9IjYwMCIgaGVpZ2h0PSI5MCIgZmlsbD0iIzA1MDUwNSIgcng9IjIiLz48cmVjdCB4PSIyMjAiIHk9IjQyMCIgd2lkdGg9IjEyMCIgaGVpZ2h0PSI2MCIgZmlsbD0iIzIyMjIyMiIgcng9IjMiLz48dGV4dCB4PSIyODAiIHk9IjQ1NSIgZmlsbD0iI2ZmZmZmZiIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UE9XRVI8L3RleHQ+PHJlY3QgeD0iMzUwIiB5PSI0MjAiIHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiIGZpbGw9IiMyMjIyMjIiIHJ4PSIzIi8+PHRleHQgeD0iNDEwIiB5PSI0NTUiIGZpbGw9IiNmZmZmZmYiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9ImJvbGQiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlJFU0VUPC90ZXh0PjxjaXJjbGUgY3g9IjE5NSIgY3k9IjQ1MCIgcj0iMTIiIGZpbGw9IiM0NDAwMDAiLz48L3N2Zz4=");
+    .nes-top-housing {
+      width: 100%;
+      height: 110px;
+      background-color: #e6e6e6;
+      border-bottom: 2px solid #aaaaaa;
+      position: relative;
     }
 
-    .hotspot-door {
+    .nes-black-stripe {
       position: absolute;
-      top: 7%;
-      left: 13.5%;
-      width: 55.5%;
-      height: 38%;
+      top: 15px;
+      left: 30px;
+      width: 280px;
+      height: 80px;
+      background-color: #1a1a1a;
+      border-radius: 3px;
+      padding: 8px 12px;
+      box-sizing: border-box;
+    }
+
+    .nes-brand-text {
+      color: #cc0000;
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    .nes-subbrand-text {
+      color: #cc0000;
+      font-size: 8px;
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+    }
+
+    /* CARTRIDGE DOOR */
+    .nes-door {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 50px;
+      background-color: #333333;
+      border-radius: 3px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #888888;
+      font-size: 10px;
+      font-weight: bold;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      transform-origin: top center;
       z-index: 5;
     }
 
-    .rom-slot-trigger {
+    .nes-door.open {
+      transform: rotateX(-90deg);
+      background-color: #111111;
+    }
+
+    .nes-slot-inside {
       position: absolute;
-      top: 24%;
-      left: 17%;
-      width: 48.5%;
-      height: 18%;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 50px;
+      background-color: #050505;
       display: flex;
-      justify-content: center;
       align-items: center;
-      opacity: 0;
-      pointer-events: none;
-      z-index: 10;
+      justify-content: center;
+      z-index: 2;
     }
 
-    .nes-interactive-console.open-state .rom-slot-trigger {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    .rom-slot-trigger button {
+    .nes-slot-inside button {
       font-family: Arial, Helvetica, sans-serif;
-      font-size: 12px;
-      background: var(--th-bg);
-      color: var(--text-color);
-      border: 1px solid var(--table-border);
+      font-size: 11px;
+      background: #e0e0e0;
+      color: #000;
+      border: 1px solid #000;
       padding: 4px 8px;
       cursor: pointer;
+      font-weight: bold;
     }
 
-    .hotspot-power {
+    /* LOWER BUTTON PANEL */
+    .nes-bottom-housing {
       position: absolute;
-      bottom: 12%;
-      left: 17.5%;
-      width: 10%;
-      height: 18%;
-      cursor: pointer;
-      z-index: 10;
+      bottom: 0;
+      width: 100%;
+      height: 90px;
+      display: flex;
+      align-items: center;
+      padding-left: 30px;
+      gap: 15px;
+      box-sizing: border-box;
     }
 
-    .hotspot-reset {
-      position: absolute;
-      bottom: 12%;
-      left: 28%;
-      width: 10%;
-      height: 18%;
+    .nes-power-btn, .nes-reset-btn {
+      width: 60px;
+      height: 30px;
+      background-color: #222222;
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 3px;
       cursor: pointer;
-      z-index: 10;
+      border: 1px solid #000;
+      box-shadow: 0 2px 0 #000;
+    }
+
+    .nes-power-btn:active, .nes-reset-btn:active {
+      transform: translateY(2px);
+      box-shadow: none;
     }
 
     .led-glow {
-      position: absolute;
-      bottom: 13.5%;
-      left: 15.1%;
-      width: 12px;
-      height: 12px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
-      background: #ff0000;
-      opacity: 0;
-      box-shadow: 0 0 8px #ff0000;
-      pointer-events: none;
+      background-color: #440000;
+      margin-left: -5px;
+      transition: background-color 0.2s, box-shadow 0.2s;
     }
 
     .led-glow.active {
-      opacity: 1;
+      background-color: #ff0000;
+      box-shadow: 0 0 8px #ff0000;
     }
 
     /* ACTION PANEL & GAMEPAD STATUS */
@@ -250,7 +296,7 @@
       box-shadow: 0 0 4px #00cc44;
     }
 
-    /* CONTROLS & DEVLOG TABLES */
+    /* TABLES & DEVLOG */
     table {
       border-collapse: collapse;
       font-size: 13px;
@@ -322,20 +368,31 @@
       <h2>Console Hardware</h2>
       <p>Click the cartridge door to open slot and load a game ROM. Click <b>POWER</b> to start.</p>
 
-      <!-- INTERACTIVE NES IMAGE -->
-      <div class="nes-interactive-console" id="consoleBody">
-        <div class="hotspot-door" id="doorHotspot" onclick="toggleDoor()"></div>
+      <!-- PURE CSS INTERACTIVE CONSOLE -->
+      <div class="nes-interactive-console">
+        <div class="nes-top-housing">
+          <div class="nes-black-stripe">
+            <div class="nes-brand-text">Nintendo</div>
+            <div class="nes-subbrand-text">ENTERTAINMENT SYSTEM</div>
+            
+            <div class="nes-slot-inside">
+              <button onclick="document.getElementById('romInput').click()">Insert .NES Cartridge</button>
+            </div>
 
-        <div class="rom-slot-trigger">
-          <button onclick="document.getElementById('romInput').click()">Insert .NES Cartridge</button>
+            <div class="nes-door" id="consoleDoor" onclick="toggleDoor()">
+              CLICK TO OPEN CARTRIDGE SLOT
+            </div>
+          </div>
         </div>
-        <input type="file" id="romInput" accept=".nes,.zip" style="display: none;">
 
-        <div class="hotspot-power" onclick="togglePower()" title="Power Switch"></div>
-        <div class="hotspot-reset" onclick="resetGame()" title="Reset Button"></div>
-
-        <div class="led-glow" id="powerLed"></div>
+        <div class="nes-bottom-housing">
+          <div class="led-glow" id="powerLed"></div>
+          <div class="nes-power-btn" onclick="togglePower()" title="Power Switch">POWER</div>
+          <div class="nes-reset-btn" onclick="resetGame()" title="Reset Button">RESET</div>
+        </div>
       </div>
+
+      <input type="file" id="romInput" accept=".nes,.zip" style="display: none;">
 
       <!-- SAVE / LOAD CONTROLS -->
       <div class="action-panel">
@@ -389,8 +446,7 @@
     let isPowerOn = false;
     let loadedRomFile = null;
 
-    const consoleBody = document.getElementById('consoleBody');
-    const doorHotspot = document.getElementById('doorHotspot');
+    const consoleDoor = document.getElementById('consoleDoor');
     const romInput = document.getElementById('romInput');
     const powerLed = document.getElementById('powerLed');
     const screenMsg = document.getElementById('screenMsg');
@@ -408,11 +464,9 @@
     function toggleDoor() {
       isDoorOpen = !isDoorOpen;
       if (isDoorOpen) {
-        consoleBody.classList.add('open-state');
-        doorHotspot.style.pointerEvents = 'none';
+        consoleDoor.classList.add('open');
       } else {
-        consoleBody.classList.remove('open-state');
-        doorHotspot.style.pointerEvents = 'all';
+        consoleDoor.classList.remove('open');
       }
     }
 
